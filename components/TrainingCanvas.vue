@@ -1,16 +1,28 @@
 <template>
   <v-stage :config="canvas" ref="stage">
+
     <v-layer>
       <v-rect :config="background"/>
     </v-layer>
+
     <v-layer>
       <v-rect v-for="(obstacle, i) in obstacles" :key="i" :config="obstacle"/>
     </v-layer>
+
+    <v-layer>
+      <v-image :config="car"/>
+    </v-layer>
+
   </v-stage>
 </template>
 
 <script>
   export default {
+    mounted () {
+      this.carImage = new Image()
+      this.carImage.src = '/car.png'
+    },
+
     data() {
       return {
         canvas: {
@@ -30,7 +42,9 @@
           { x: 200, y: 150, width: 50, height: 70, fill: 'black' },
           { x: 700, y: 250, width: 100, height: 100, fill: 'black' },
           { x: 250, y: 450, width: 150, height: 30, fill: 'black' }
-        ]
+        ],
+
+        carImage: ''
       }
     },
 
@@ -43,6 +57,19 @@
           height: this.canvas.height,
           fill: 'white',
           stroke: 'black'
+        }
+      },
+
+      car () {
+        return {
+          x: 15,
+          y: 15,
+          width: 50,
+          height: 27,
+          // angle: 0,
+          // speed: 2,
+          // mod: 0,
+          image: this.carImage
         }
       }
     }
