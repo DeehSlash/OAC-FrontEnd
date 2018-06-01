@@ -21,7 +21,8 @@ module.exports = {
   ** Plugins
   */
   plugins: [
-    '~/plugins/vuesax'
+    '~/plugins/vuesax',
+    '~/plugins/vuekonva'
   ],
   /*
   ** Build configuration
