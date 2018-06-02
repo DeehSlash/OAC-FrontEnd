@@ -20,7 +20,7 @@
         <v-rect :config="background"/>
         <v-rect v-for="(obstacle, i) in obstacles" :key="i" :config="obstacle" :ref="'obstacle' + i"/>
         <v-image :config="_car"/>
-        <v-line v-for="(line, i) in lines" :key="i" :config="line"/>
+        <!-- <v-line v-for="(line, i) in lines" :key="i" :config="line"/> -->
       </v-layer>
     </v-stage>
 
@@ -52,6 +52,9 @@
         if (['w', 'a', 's', 'd'].includes(e.key))
           this.keyHandler(e.key)
       })
+
+      // Calculate the first distance 
+      this.distance = this.calculateDistance()
     },
 
     data () {
@@ -87,7 +90,7 @@
           rotation: 0
         },
 
-        lastKeyPressed: '',
+        distance: -1,
 
         trainingData: []
       }
@@ -172,6 +175,7 @@
       },
 
       keyHandler (key) {
+        // Moves the car based on the pressed key
         switch (key) {
           case 'w':
             this.car.x += this.car.speed * Math.cos(Math.PI / 180 * this.car.rotation)
@@ -189,14 +193,12 @@
             break
         }
 
-        if (this.lastKeyPressed) {
-          let d = this.calculateDistance()
+        // If the distance is greater than 0 (obstacle ahead), save it as a training data
+        if (this.distance >= 0)
+            this.trainingData.push({ d: this.distance, key })
 
-          if (d >= 0)
-            this.trainingData.push({ d, key: this.lastKeyPressed })
-        }
-
-        this.lastKeyPressed = key
+        // Recalculate the distance
+        this.distance = this.calculateDistance()
       },
 
       calculateDistance () {
