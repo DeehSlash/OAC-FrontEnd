@@ -9,7 +9,8 @@
           <vs-button vs-type="danger-gradient" vs-icon="clear" @click="resetTrainingData">Reset Training Data</vs-button>
           <vs-button vs-type="danger-gradient" vs-icon="clear" @click="resetCarPosition">Reset Car Position</vs-button>
         </vs-col>
-        <vs-col vs-type="flex" vs-justify="flex-end" vs-w="6">
+        <vs-col vs-type="flex" vs-align="center" vs-justify="flex-end" vs-w="6">
+          <vs-chip vs-icon="info" vs-color="primary" class="chip">Training Data Entries<br>{{ trainingData.length }}</vs-chip>
           <vs-button vs-type="success-gradient" vs-icon="done">Finish</vs-button>
         </vs-col>
       </vs-row>
@@ -23,20 +24,16 @@
         <!-- <v-line v-for="(line, i) in lines" :key="i" :config="line"/> -->
       </v-layer>
     </v-stage>
-
-    <div class="footer">
-      Training data entries: {{ trainingData.length }}
-    </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
   .header {
-    margin-bottom: 15px;
+    margin-bottom: 5px;
   }
 
-  .footer {
-    margin-top: 15px;
+  .chip {
+    margin-right: 15px;
   }
 </style>
 
