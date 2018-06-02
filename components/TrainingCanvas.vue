@@ -20,7 +20,7 @@
         <v-rect :config="background"/>
         <v-rect v-for="(obstacle, i) in obstacles" :key="i" :config="obstacle" :ref="'obstacle' + i"/>
         <v-image :config="_car"/>
-        <!-- <v-line v-for="(line, i) in lines" :key="i" :config="line"/> -->
+        <v-line v-for="(line, i) in lines" :key="i" :config="line"/>
       </v-layer>
     </v-stage>
 
