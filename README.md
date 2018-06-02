@@ -1,6 +1,25 @@
-# oac-frontend
+# OAC-FrontEnd
 
 > Obstacle Avoiding Car - Front End
+
+## Acronyms
+
+- **OAC** - Obstacle Avoiding Car
+- **npm** - Node Package Manager
+- **ANN** - Artificial Neural Network
+- **HTML** - HyperText Markup Language
+
+## Description
+
+This is the Front End project for **OAC**.
+
+This project includes an **index** page, a **training** page for collecting training data for the **ANN**, and an execution page, where the car will drive itself using the **ANN** available in the **API** (check **OAC-API** project).
+
+## Requirements
+
+- Node.js
+- npm (included in Node.js)
+- HTML5 compatible browser
 
 ## Build Setup
 
@@ -18,5 +37,3 @@ $ npm start
 # generate static project
 $ npm run generate
 ```
-
-For detailed explanation on how things work, checkout the [Nuxt.js docs](https://github.com/nuxt/nuxt.js).
