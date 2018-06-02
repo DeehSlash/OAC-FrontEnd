@@ -52,8 +52,7 @@
           height: 27,
           offsetX: 50 / 2,
           offsetY: 27 / 2,
-          // speed: 2,
-          // mod: 0,
+          speed: 2,
           image: '',
           rotation: 0
         }
@@ -80,8 +79,7 @@
           height: this.car.height,
           offsetX: this.car.offsetX,
           offsetY: this.car.offsetY,
-          // speed: this.car.speed,
-          // mod: this.car.mod,
+          speed: this.car.speed,
           image: this.car.image,
           rotation: this.car.rotation
         }
@@ -91,6 +89,14 @@
     methods: {
       keyHandler (key) {
         switch (key) {
+          case 'w':
+            this.car.x += this.car.speed * Math.cos(Math.PI / 180 * this.car.rotation)
+            this.car.y += this.car.speed * Math.sin(Math.PI / 180 * this.car.rotation)
+            break
+          case 's':
+            this.car.x += this.car.speed * Math.cos(Math.PI / 180 * this.car.rotation)
+            this.car.y += this.car.speed * Math.sin(Math.PI / 180 * this.car.rotation)
+            break
           case 'a':
             this.car.rotation -= 5
             break
