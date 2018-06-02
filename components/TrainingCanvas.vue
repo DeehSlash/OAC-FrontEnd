@@ -1,15 +1,27 @@
 <template>
-  <v-stage :config="canvas" ref="stage">
+  <div>
+    <v-stage :config="canvas" ref="stage">
 
-    <v-layer ref="layer">
-      <v-rect :config="background"/>
-      <v-rect v-for="(obstacle, i) in obstacles" :key="i" :config="obstacle" :ref="'obstacle' + i"/>
-      <v-image :config="_car"/>
-      <!-- <v-line v-for="(line, i) in lines" :key="i" :config="line"/> -->
-    </v-layer>
+      <v-layer ref="layer">
+        <v-rect :config="background"/>
+        <v-rect v-for="(obstacle, i) in obstacles" :key="i" :config="obstacle" :ref="'obstacle' + i"/>
+        <v-image :config="_car"/>
+        <!-- <v-line v-for="(line, i) in lines" :key="i" :config="line"/> -->
+      </v-layer>
 
-  </v-stage>
+    </v-stage>
+
+    <div class="footer">
+      Training data entries: {{ trainingData.length }}
+    </div>
+  </div>
 </template>
+
+<style lang="scss" scoped>
+  .footer {
+    margin-top: 15px;
+  }
+</style>
 
 <script>
   export default {
