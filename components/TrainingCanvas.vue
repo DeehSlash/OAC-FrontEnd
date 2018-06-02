@@ -3,9 +3,9 @@
 
     <v-layer ref="layer">
       <v-rect :config="background"/>
-      <v-rect v-for="(obstacle, i) in obstacles" :key="i" :config="obstacle"/>
+      <v-rect v-for="(obstacle, i) in obstacles" :key="i" :config="obstacle" :ref="'obstacle' + i"/>
       <v-image :config="_car"/>
-      <v-line v-for="(line, i) in lines" :key="i" :config="line"/>
+      <!-- <v-line v-for="(line, i) in lines" :key="i" :config="line"/> -->
     </v-layer>
 
   </v-stage>
@@ -25,7 +25,7 @@
       })
     },
 
-    data() {
+    data () {
       return {
         canvas: {
           width: 1000,
@@ -56,7 +56,11 @@
           speed: 2,
           image: '',
           rotation: 0
-        }
+        },
+
+        lastKeyPressed: '',
+
+        trainingData: []
       }
     },
 
@@ -119,6 +123,38 @@
             this.car.rotation += 5
             break
         }
+
+        if (this.lastKeyPressed) {
+          let d = this.calculateDistance()
+
+          if (d >= 0)
+            this.trainingData.push({ d, key: this.lastKeyPressed })
+        }
+
+        this.lastKeyPressed = key
+      },
+
+      calculateDistance () {
+        let line = this.lines[0].points
+        let x, y
+        let cos = Math.cos(Math.PI / 180 * this.car.rotation)
+        let sin = Math.sin(Math.PI / 180 * this.car.rotation)
+
+        for(let i = 0; i < this.obstacles.length; i++) {
+          let obstacle = this.$refs[`obstacle${i}`][0].getStage()
+
+          for (let j = 0; j < 50; j++) {
+            x = this.car.x + ((this.car.width / 2) + j) * cos
+            y = this.car.y + ((this.car.width / 2) + j) * sin
+
+            if (obstacle.intersects({ x, y })) {
+              console.log('INTERSECTS')
+              return j
+            }
+          }
+        }
+        
+        return -1
       }
     }
   }
