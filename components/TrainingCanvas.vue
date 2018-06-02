@@ -3,11 +3,14 @@
     <div class="header">
       <vs-row>
         <vs-col vs-type="flex" vs-justify="flex-start" vs-w="6">
-          <vs-button vs-type="danger-gradient" @click="resetTrainingData">Reset Training Data</vs-button>
-          <vs-button vs-type="danger-gradient" @click="resetCarPosition">Reset Car Position</vs-button>
+          <nuxt-link to="/">
+            <vs-button vs-type="dark-gradient" vs-icon="arrow_back">Back</vs-button>
+          </nuxt-link>
+          <vs-button vs-type="danger-gradient" vs-icon="clear" @click="resetTrainingData">Reset Training Data</vs-button>
+          <vs-button vs-type="danger-gradient" vs-icon="clear" @click="resetCarPosition">Reset Car Position</vs-button>
         </vs-col>
         <vs-col vs-type="flex" vs-justify="flex-end" vs-w="6">
-          <vs-button vs-type="success-gradient">Finish</vs-button>
+          <vs-button vs-type="success-gradient" vs-icon="done">Finish</vs-button>
         </vs-col>
       </vs-row>
     </div>
