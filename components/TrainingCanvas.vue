@@ -3,8 +3,8 @@
     <div class="header">
       <vs-row>
         <vs-col vs-type="flex" vs-justify="flex-start" vs-w="6">
-          <vs-button vs-type="danger-gradient" @click="resetTrainingData">Reset training data</vs-button>
-          <vs-button vs-type="danger-gradient" @click="resetCarPosition">Reset car position</vs-button>
+          <vs-button vs-type="danger-gradient" @click="resetTrainingData">Reset Training Data</vs-button>
+          <vs-button vs-type="danger-gradient" @click="resetCarPosition">Reset Car Position</vs-button>
         </vs-col>
         <vs-col vs-type="flex" vs-justify="flex-end" vs-w="6">
           <vs-button vs-type="success-gradient">Finish</vs-button>
@@ -134,7 +134,7 @@
     methods: {
       resetTrainingData () {
         this.$vs.alert({
-          title: 'Reset training data',
+          title: 'Reset Training Data',
           text: 'Are you sure you want to reset training data?',
           textConfirm: 'Reset',
           color: '#ff4757',
@@ -146,7 +146,7 @@
 
       resetCarPosition () {
         this.$vs.alert({
-          title: 'Reset car position',
+          title: 'Reset Car Position',
           text: 'Are you sure you want to reset the car position?',
           textConfirm: 'Reset',
           color: '#ff4757',
