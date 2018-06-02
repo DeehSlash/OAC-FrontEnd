@@ -1,14 +1,24 @@
 <template>
   <div>
-    <v-stage :config="canvas" ref="stage">
+    <div class="header">
+      <vs-row>
+        <vs-col vs-type="flex" vs-justify="flex-start" vs-w="6">
+          <vs-button vs-type="danger-gradient" @click="resetTrainingData">Reset training data</vs-button>
+          <vs-button vs-type="danger-gradient" @click="resetCarPosition">Reset car position</vs-button>
+        </vs-col>
+        <vs-col vs-type="flex" vs-justify="flex-end" vs-w="6">
+          <vs-button vs-type="success-gradient">Finish</vs-button>
+        </vs-col>
+      </vs-row>
+    </div>
 
+    <v-stage :config="canvas" ref="stage">
       <v-layer ref="layer">
         <v-rect :config="background"/>
         <v-rect v-for="(obstacle, i) in obstacles" :key="i" :config="obstacle" :ref="'obstacle' + i"/>
         <v-image :config="_car"/>
         <!-- <v-line v-for="(line, i) in lines" :key="i" :config="line"/> -->
       </v-layer>
-
     </v-stage>
 
     <div class="footer">
@@ -18,6 +28,10 @@
 </template>
 
 <style lang="scss" scoped>
+  .header {
+    margin-bottom: 15px;
+  }
+
   .footer {
     margin-top: 15px;
   }
@@ -118,6 +132,32 @@
     },
 
     methods: {
+      resetTrainingData () {
+        this.$vs.alert({
+          title: 'Reset training data',
+          text: 'Are you sure you want to reset training data?',
+          textConfirm: 'Reset',
+          color: '#ff4757',
+          confirm: () => {
+            this.trainingData = []
+          }
+        })
+      },
+
+      resetCarPosition () {
+        this.$vs.alert({
+          title: 'Reset car position',
+          text: 'Are you sure you want to reset the car position?',
+          textConfirm: 'Reset',
+          color: '#ff4757',
+          confirm: () => {
+            this.car.x = 40
+            this.car.y = 30
+            this.car.rotation = 0
+          }
+        })
+      },
+
       keyHandler (key) {
         switch (key) {
           case 'w':
