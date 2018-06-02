@@ -13,7 +13,7 @@
     </nuxt-link>
 
     <div class="note">
-      <b>Note:</b> this application is targeted for <b>Desktop</b> only.<br>
+      <b>Note:</b> this application is targeted for <b>desktop</b> only.<br>
       A minimum screen resolution of <b>1366 x 768</b> is recommended.
     </div>
 
