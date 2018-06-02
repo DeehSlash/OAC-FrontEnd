@@ -94,8 +94,8 @@
             this.car.y += this.car.speed * Math.sin(Math.PI / 180 * this.car.rotation)
             break
           case 's':
-            this.car.x += this.car.speed * Math.cos(Math.PI / 180 * this.car.rotation)
-            this.car.y += this.car.speed * Math.sin(Math.PI / 180 * this.car.rotation)
+            this.car.x -= this.car.speed * Math.cos(Math.PI / 180 * this.car.rotation)
+            this.car.y -= this.car.speed * Math.sin(Math.PI / 180 * this.car.rotation)
             break
           case 'a':
             this.car.rotation -= 5
