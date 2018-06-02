@@ -1,16 +1,10 @@
 <template>
   <v-stage :config="canvas" ref="stage">
 
-    <v-layer>
+    <v-layer ref="layer">
       <v-rect :config="background"/>
-    </v-layer>
-
-    <v-layer>
       <v-rect v-for="(obstacle, i) in obstacles" :key="i" :config="obstacle"/>
-    </v-layer>
-
-    <v-layer>
-      <v-image :config="car"/>
+      <v-image :config="_car"/>
     </v-layer>
 
   </v-stage>
@@ -19,8 +13,15 @@
 <script>
   export default {
     mounted () {
-      this.carImage = new Image()
-      this.carImage.src = '/car.png'
+      // Initialize car image
+      this.car.image = new Image()
+      this.car.image.src = '/car.png'
+
+      // Add Key Down listener
+      window.addEventListener('keydown', (e) => {
+        if (['w', 'a', 's', 'd'].includes(e.key))
+          this.keyHandler(e.key)
+      })
     },
 
     data() {
@@ -44,7 +45,18 @@
           { x: 250, y: 450, width: 150, height: 30, fill: 'black' }
         ],
 
-        carImage: ''
+        car: {
+          x: 40,
+          y: 30,
+          width: 50,
+          height: 27,
+          offsetX: 50 / 2,
+          offsetY: 27 / 2,
+          // speed: 2,
+          // mod: 0,
+          image: '',
+          rotation: 0
+        }
       }
     },
 
@@ -60,16 +72,31 @@
         }
       },
 
-      car () {
+      _car () {
         return {
-          x: 15,
-          y: 15,
-          width: 50,
-          height: 27,
-          // angle: 0,
-          // speed: 2,
-          // mod: 0,
-          image: this.carImage
+          x: this.car.x,
+          y: this.car.y,
+          width: this.car.width,
+          height: this.car.height,
+          offsetX: this.car.offsetX,
+          offsetY: this.car.offsetY,
+          // speed: this.car.speed,
+          // mod: this.car.mod,
+          image: this.car.image,
+          rotation: this.car.rotation
+        }
+      }
+    },
+
+    methods: {
+      keyHandler (key) {
+        switch (key) {
+          case 'a':
+            this.car.rotation -= 5
+            break
+          case 'd':
+            this.car.rotation += 5
+            break
         }
       }
     }
