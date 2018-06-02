@@ -140,9 +140,14 @@
           title: 'Reset Training Data',
           text: 'Are you sure you want to reset training data?',
           textConfirm: 'Reset',
-          color: '#ff4757',
+          color: 'danger',
           confirm: () => {
             this.trainingData = []
+            this.$vs.notify({
+              title: 'Success',
+              text: 'Training data has been successfully reset',
+              color: 'success'
+            })
           }
         })
       },
@@ -152,11 +157,16 @@
           title: 'Reset Car Position',
           text: 'Are you sure you want to reset the car position?',
           textConfirm: 'Reset',
-          color: '#ff4757',
+          color: 'danger',
           confirm: () => {
             this.car.x = 40
             this.car.y = 30
             this.car.rotation = 0
+            this.$vs.notify({
+              title: 'Success',
+              text: 'Car position has been successfully reset',
+              color: 'success'
+            })
           }
         })
       },
