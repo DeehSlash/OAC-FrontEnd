@@ -6,7 +6,7 @@
           <nuxt-link to="/">
             <vs-button vs-type="dark-gradient" vs-icon="arrow_back">Back</vs-button>
           </nuxt-link>
-          <vs-button vs-type="danger-gradient" vs-icon="clear" @click="resetTrainingData">Reset Training Data</vs-button>
+          <vs-button vs-type="danger-gradient" vs-icon="clear" @click="clearTrainingData">Clear Training Data</vs-button>
           <vs-button vs-type="danger-gradient" vs-icon="clear" @click="resetCarPosition">Reset Car Position</vs-button>
         </vs-col>
         <vs-col vs-type="flex" vs-align="center" vs-justify="flex-end" vs-w="6">
@@ -88,8 +88,6 @@
         },
 
         distance: -1,
-
-        trainingData: []
       }
     },
 
@@ -131,21 +129,25 @@
             stroke: 'green'
           }
         ]
+      },
+
+      trainingData () {
+        return this.$store.getters.getTrainingData
       }
     },
 
     methods: {
-      resetTrainingData () {
+      clearTrainingData () {
         this.$vs.alert({
-          title: 'Reset Training Data',
-          text: 'Are you sure you want to reset training data?',
-          textConfirm: 'Reset',
+          title: 'Clear Training Data',
+          text: 'Are you sure you want to clear training data?',
+          textConfirm: 'Clear',
           color: 'danger',
           confirm: () => {
-            this.trainingData = []
+            this.$store.commit('clearTrainingData')
             this.$vs.notify({
               title: 'Success',
-              text: 'Training data has been successfully reset',
+              text: 'Training data has been successfully cleared',
               color: 'success'
             })
           }
@@ -178,7 +180,7 @@
           textConfirm: 'Finish',
           color: 'success',
           confirm: () => {
-            this.$store.dispatch('createNetwork', this.trainingData)
+            this.$store.dispatch('createNetwork')
               .then(() => {
                 this.$vs.notify({
                   title: 'Success',
@@ -211,7 +213,7 @@
 
         // If the distance is greater than 0 (obstacle ahead), save it as a training data
         if (this.distance >= 0)
-            this.trainingData.push({
+            this.$store.commit('addTrainingData', {
               input: [this.distance],
               output: [key]
             })
