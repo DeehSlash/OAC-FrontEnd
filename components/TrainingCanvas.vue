@@ -22,7 +22,7 @@
         <v-rect :config="background"/>
         <v-rect v-for="(obstacle, i) in obstacles" :key="i" :config="obstacle" :ref="'obstacle' + i"/>
         <v-image :config="_car"/>
-        <!-- <v-line v-for="(line, i) in lines" :key="i" :config="line"/> -->
+        <!-- <v-line v-for="line in lines" :key="line.name" :config="line"/> -->
       </v-layer>
     </v-stage>
   </div>
@@ -125,6 +125,7 @@
       lines () {
         return [
           {
+            name: 'middle',
             points: [
               this.car.x + (this.car.width / 2) * Math.cos(Math.PI / 180 * this.car.rotation),
               this.car.y + (this.car.width / 2) * Math.sin(Math.PI / 180 * this.car.rotation),
