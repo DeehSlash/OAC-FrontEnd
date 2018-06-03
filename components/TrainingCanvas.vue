@@ -11,7 +11,7 @@
         </vs-col>
         <vs-col vs-type="flex" vs-align="center" vs-justify="flex-end" vs-w="6">
           <vs-chip vs-icon="info" vs-color="primary" class="chip">Training Data Entries<br>{{ trainingData.length }}</vs-chip>
-          <vs-button vs-type="success-gradient" vs-icon="done">Finish</vs-button>
+          <vs-button vs-type="success-gradient" vs-icon="done" @click="finish">Finish</vs-button>
         </vs-col>
       </vs-row>
     </div>
@@ -167,6 +167,25 @@
               text: 'Car position has been successfully reset',
               color: 'success'
             })
+          }
+        })
+      },
+
+      finish () {
+        this.$vs.alert({
+          title: 'Finish',
+          text: 'Are you sure you want to finish the training?',
+          textConfirm: 'Finish',
+          color: 'success',
+          confirm: () => {
+            this.$store.dispatch('createNetwork', this.trainingData)
+              .then(() => {
+                this.$vs.notify({
+                  title: 'Success',
+                  text: `Network created with code ${this.$store.getters.getCode}`,
+                  color: 'success'
+                })
+              })
           }
         })
       },
