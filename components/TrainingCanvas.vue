@@ -149,7 +149,7 @@
               title: 'Success',
               text: 'Training data has been successfully cleared',
               color: 'success',
-              time: 3000
+              time: 5000
             })
           }
         })
@@ -169,7 +169,7 @@
               title: 'Success',
               text: 'Car position has been successfully reset',
               color: 'success',
-              time: 3000
+              time: 5000
             })
           }
         })
@@ -188,7 +188,7 @@
                   title: 'Success',
                   text: `Network created with code ${this.$store.getters.getCode}`,
                   color: 'success',
-                  time: 3000
+                  time: 5000
                 })
               })
               .catch(e => {
