@@ -40,6 +40,9 @@
 <script>
   export default {
     mounted () {
+      // Check if code exists
+      this.checkCode()
+
       // Initialize car image
       this.car.image = new Image()
       this.car.image.src = '/car.png'
@@ -150,6 +153,20 @@
     },
 
     methods: {
+      checkCode () {
+        if(!this.$store.getters.getCode) {
+          this.$vs.alert({
+            title: 'Error',
+            text: 'No ANN code was found, did you skip the Training proccess?',
+            textConfirm: 'Go to training',
+            color: 'danger',
+            confirm: () => {
+              this.$nuxt.$router.replace({ path: '/training' })
+            }
+          })
+        }
+      },
+
       resetCarPosition () {
         this.$vs.alert({
           title: 'Reset Car Position',
