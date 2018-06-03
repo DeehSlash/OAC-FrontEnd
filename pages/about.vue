@@ -18,6 +18,10 @@
       <a href="https://www.univali.br" target="_blank">UNIVALI - Universidade do Vale do Itajaí</a>
     </div>
 
+    <nuxt-link to="/">
+      <vs-button vs-type="dark-gradient" vs-icon="arrow_back">Back</vs-button>
+    </nuxt-link>
+
   </container>
 </template>
 
@@ -27,7 +31,7 @@
   }
 
   .footer {
-    margin-top: 50px;
+    margin: 25px 0;
   }
 
   a {
