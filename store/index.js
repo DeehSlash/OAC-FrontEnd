@@ -40,7 +40,6 @@ export const actions = {
     return new Promise((resolve, reject) => {
       api.post('network', state.trainingData)
         .then(res => {
-          console.log(`Network created with code ${res.data}`)
           commit('setCode', res.data)
           resolve()
         })

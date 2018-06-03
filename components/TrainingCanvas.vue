@@ -238,10 +238,8 @@
             x = this.car.x + ((this.car.width / 2) + j) * cos
             y = this.car.y + ((this.car.width / 2) + j) * sin
 
-            if (obstacle.intersects({ x, y })) {
-              console.log('INTERSECTS')
+            if (obstacle.intersects({ x, y }))
               return j
-            }
           }
         }
         
