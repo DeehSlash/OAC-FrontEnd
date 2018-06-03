@@ -79,8 +79,8 @@
         ],
 
         car: {
-          x: 40,
-          y: 30,
+          x: 450,
+          y: 250,
           width: 50,
           height: 27,
           offsetX: 50 / 2,
