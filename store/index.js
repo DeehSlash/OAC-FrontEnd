@@ -8,12 +8,17 @@ const api = axios.create(config.api)
 
 export const state = () => ({
   trainingData: [],
+  trainingResult: {},
   code: ''
 })
 
 export const getters = {
   getTrainingData: state => {
     return state.trainingData
+  },
+
+  getTrainingResult: state => {
+    return state.trainingResult
   },
 
   getCode: state => {
@@ -30,6 +35,10 @@ export const mutations = {
     state.trainingData = []
   },
 
+  setTrainingResult (state, result) {
+    state.trainingResult = result
+  },
+
   setCode (state, code) {
     state.code = code
   }
@@ -40,7 +49,8 @@ export const actions = {
     return new Promise((resolve, reject) => {
       api.post('network', state.trainingData)
         .then(res => {
-          commit('setCode', res.data)
+          commit('setCode', res.data.code)
+          commit('setTrainingResult', res.data.trainingResult)
           resolve()
         })
         .catch(e => {

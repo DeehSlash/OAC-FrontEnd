@@ -139,6 +139,10 @@
 
       trainingData () {
         return this.$store.getters.getTrainingData
+      },
+
+      trainingResult () {
+        return this.$store.getters.getTrainingResult
       }
     },
 
@@ -201,6 +205,12 @@
             this.$store.dispatch('createNetwork')
               .then(() => {
                 this.$vs.loading.close()
+                this.$vs.alert({
+                  title: 'Training Result',
+                  text: `Error: ${this.trainingResult.error}<br>Iterations: ${this.trainingResult.iterations}<br>Time: ${this.trainingResult.time}`,
+                  textConfirm: 'OK',
+                  color: 'success'
+                })
                 this.$vs.notify({
                   title: 'Success',
                   text: `Network created with code ${this.$store.getters.getCode}`,
