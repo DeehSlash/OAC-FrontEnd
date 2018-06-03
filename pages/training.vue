@@ -8,9 +8,9 @@
 </template>
 
 <script>
-  import Container from '~/components/Container.vue'
-  import PageTitle from '~/components/PageTitle.vue'
-  import TrainingCanvas from '~/components/TrainingCanvas.vue'
+  import Container from '~/components/Container'
+  import PageTitle from '~/components/PageTitle'
+  import TrainingCanvas from '~/components/TrainingCanvas'
 
   export default {
     components: {
