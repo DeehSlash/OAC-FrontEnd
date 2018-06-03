@@ -209,7 +209,7 @@
           }
 
           this.getMovements()
-        }, 500)
+        }, 50)
       },
 
       getNextMovement () {
