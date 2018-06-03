@@ -158,8 +158,8 @@
         if(!this.$store.getters.getCode) {
           this.$vs.alert({
             title: 'Error',
-            text: 'No ANN code was found, did you skip the Training proccess?',
-            textConfirm: 'Go to training',
+            text: 'No ANN code was found, did you skip the Training process?',
+            textConfirm: 'Go To Training',
             color: 'danger',
             confirm: () => {
               this.$nuxt.$router.replace({ path: '/training' })
@@ -209,7 +209,7 @@
           }
 
           this.getMovements()
-        }, 50)
+        }, 25)
       },
 
       getNextMovement () {
