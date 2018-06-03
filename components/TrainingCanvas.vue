@@ -186,8 +186,10 @@
           textConfirm: 'Finish',
           color: 'success',
           confirm: () => {
+            this.$vs.loading({ color: 'success' })
             this.$store.dispatch('createNetwork')
               .then(() => {
+                this.$vs.loading.close()
                 this.$vs.notify({
                   title: 'Success',
                   text: `Network created with code ${this.$store.getters.getCode}`,
