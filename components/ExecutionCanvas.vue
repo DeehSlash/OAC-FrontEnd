@@ -45,6 +45,8 @@
 
       // Calculate the first distance 
       this.distance = this.calculateDistance()
+
+      this.getMovements()
     },
 
     data () {
@@ -189,6 +191,34 @@
           this.state.type = 'vs-button-success-gradient',
           this.state.icon = 'play_arrow'
         }
+      },
+
+      getMovements () {
+        setTimeout(() => {
+          if (this.state.started) {
+            this.getNextMovement()
+          }
+
+          this.getMovements()
+        }, 500)
+      },
+
+      getNextMovement () {
+        this.$store.dispatch('getNextMovement', this.distance)
+          .then(key => {
+            this.keyHandler(key)
+            this.lastMovement = key
+            return true
+          })
+          .catch(e => {
+            this.$vs.notify({
+              title: 'Error',
+              text: `Failed to communicate with the API: ${e.message}`,
+              color: 'danger',
+              time: 5000
+            })
+            return false
+          })
       },
 
       keyHandler (key) {

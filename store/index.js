@@ -47,5 +47,17 @@ export const actions = {
           reject(e)
         })
     })
+  },
+
+  getNextMovement ({ state }, { distance }) {
+    return new Promise((resolve, reject) => {
+      api.post(`network/${state.code}/activate`, [ distance ])
+        .then(res => {
+          resolve(res.data)
+        })
+        .catch(e => {
+          reject(e)
+        })
+    })
   }
 }
