@@ -191,6 +191,14 @@
                   time: 3000
                 })
               })
+              .catch(e => {
+                this.$vs.notify({
+                  title: 'Error',
+                  text: `Failed to communicate with the API: ${e.message}`,
+                  color: 'danger',
+                  time: 5000
+                })
+              })
           }
         })
       },
