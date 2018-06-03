@@ -6,6 +6,7 @@
           <nuxt-link to="/">
             <vs-button vs-type="dark-gradient" vs-icon="arrow_back">Back</vs-button>
             <vs-button vs-type="danger-gradient" vs-icon="clear" @click="resetCarPosition">Reset Car Position</vs-button>
+          <vs-chip vs-icon="info" vs-color="dark" class="chip">ANN code: {{ code }}</vs-chip>
           </nuxt-link>
         </vs-col>
         <vs-col vs-type="flex" vs-align="center" vs-justify="flex-end" vs-w="6">
@@ -141,28 +142,14 @@
 
       trainingData () {
         return this.$store.getters.getTrainingData
+      },
+
+      code () {
+        return this.$store.getters.getCode
       }
     },
 
     methods: {
-      clearTrainingData () {
-        this.$vs.alert({
-          title: 'Clear Training Data',
-          text: 'Are you sure you want to clear training data?',
-          textConfirm: 'Clear',
-          color: 'danger',
-          confirm: () => {
-            this.$store.commit('clearTrainingData')
-            this.$vs.notify({
-              title: 'Success',
-              text: 'Training data has been successfully cleared',
-              color: 'success',
-              time: 5000
-            })
-          }
-        })
-      },
-
       resetCarPosition () {
         this.$vs.alert({
           title: 'Reset Car Position',
