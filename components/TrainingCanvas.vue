@@ -180,6 +180,15 @@
       },
 
       finish () {
+        if (this.trainingData.length === 0) {
+          this.$vs.alert({
+            title: 'Error',
+            text: 'No Training Data has been collected. First, drive a little then go to the next step.',
+            textConfirm: 'OK',
+            color: 'danger',
+          })
+          return
+        }
         this.$vs.alert({
           title: 'Finish',
           text: 'Are you sure you want to finish the training?',
