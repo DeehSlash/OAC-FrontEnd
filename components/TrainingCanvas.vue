@@ -148,7 +148,8 @@
             this.$vs.notify({
               title: 'Success',
               text: 'Training data has been successfully cleared',
-              color: 'success'
+              color: 'success',
+              time: 3000
             })
           }
         })
@@ -167,7 +168,8 @@
             this.$vs.notify({
               title: 'Success',
               text: 'Car position has been successfully reset',
-              color: 'success'
+              color: 'success',
+              time: 3000
             })
           }
         })
@@ -185,7 +187,8 @@
                 this.$vs.notify({
                   title: 'Success',
                   text: `Network created with code ${this.$store.getters.getCode}`,
-                  color: 'success'
+                  color: 'success',
+                  time: 3000
                 })
               })
           }
