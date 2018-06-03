@@ -5,9 +5,9 @@
         <vs-col vs-type="flex" vs-justify="flex-start" vs-w="6">
           <nuxt-link to="/">
             <vs-button vs-type="dark-gradient" vs-icon="arrow_back">Back</vs-button>
-            <vs-button vs-type="danger-gradient" vs-icon="clear" @click="resetCarPosition">Reset Car Position</vs-button>
-          <vs-chip vs-icon="info" vs-color="dark" class="chip">ANN code: {{ code }}</vs-chip>
           </nuxt-link>
+          <vs-button vs-type="danger-gradient" vs-icon="clear" @click="resetCarPosition">Reset Car Position</vs-button>
+          <vs-chip vs-icon="info" vs-color="dark" class="chip">ANN code: {{ code }}</vs-chip>
         </vs-col>
         <vs-col vs-type="flex" vs-align="center" vs-justify="flex-end" vs-w="6">
           <vs-chip vs-icon="more_horiz" vs-color="danger" class="chip">Distance: {{ distance }}</vs-chip>
@@ -78,8 +78,8 @@
         ],
 
         car: {
-          x: 40,
-          y: 30,
+          x: 400,
+          y: 250,
           width: 50,
           height: 27,
           offsetX: 50 / 2,
