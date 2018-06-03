@@ -192,7 +192,10 @@
 
         // If the distance is greater than 0 (obstacle ahead), save it as a training data
         if (this.distance >= 0)
-            this.trainingData.push({ d: this.distance, key })
+            this.trainingData.push({
+              input: [this.distance],
+              output: [key]
+            })
 
         // Recalculate the distance
         this.distance = this.calculateDistance()
