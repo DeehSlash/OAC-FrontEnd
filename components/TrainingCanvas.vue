@@ -190,6 +190,7 @@
                   color: 'success',
                   time: 5000
                 })
+                this.$nuxt.$router.replace({ path: '/run' })
               })
               .catch(e => {
                 this.$vs.notify({
