@@ -90,7 +90,7 @@
 
         distance: -1,
 
-        lastMovement: 'w',
+        lastMovement: '',
 
         state: {
           started: false,
