@@ -10,6 +10,7 @@
           </nuxt-link>
         </vs-col>
         <vs-col vs-type="flex" vs-align="center" vs-justify="flex-end" vs-w="6">
+          <vs-chip vs-icon="more_horiz" vs-color="danger" class="chip">Distance: {{ distance }}</vs-chip>
           <vs-chip vs-icon="info" vs-color="primary" class="chip">Last movement: {{ lastMovement }}</vs-chip>
           <vs-button :class="state.type" :vs-icon="state.icon" @click="start" vs-width="120px">{{ state.text }}</vs-button>
         </vs-col>
@@ -88,7 +89,7 @@
           rotation: 0
         },
 
-        distance: -1,
+        distance: null,
 
         lastMovement: '',
 
