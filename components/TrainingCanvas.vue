@@ -50,6 +50,8 @@
           this.keyHandler(e.key)
       })
 
+      this.ctx = this.$refs.layer.getStage().getContext()
+
       // Calculate the first distance 
       this.distance = this.calculateDistance()
     },
@@ -88,6 +90,8 @@
         },
 
         distance: -1,
+
+        ctx: null
       }
     },
 
@@ -236,23 +240,35 @@
 
       calculateDistance () {
         let line = this.lines[0].points
-        let x, y
+        let x, y, p, hex
         let cos = Math.cos(Math.PI / 180 * this.car.rotation)
         let sin = Math.sin(Math.PI / 180 * this.car.rotation)
 
-        for(let i = 0; i < this.obstacles.length; i++) {
-          let obstacle = this.$refs[`obstacle${i}`][0].getStage()
+        for (let i = 0; i < 50; i++) {
+          x = this.car.x + ((this.car.width / 2) + i) * cos
+          y = this.car.y + ((this.car.width / 2) + i) * sin
 
-          for (let j = 0; j < 50; j++) {
-            x = this.car.x + ((this.car.width / 2) + j) * cos
-            y = this.car.y + ((this.car.width / 2) + j) * sin
+          // Check if out of bounds
+          if ((x < 0 || x > 1000) || (y < 0 || y > 500))
+            return i
 
-            if (obstacle.intersects({ x, y }))
-              return j
-          }
+          // Check if there's a obstacle
+          p = this.ctx.getImageData(x, y, 1, 1).data
+          hex = '#' + ('000000' + this.rgbToHex(p[0], p[1], p[2])).slice(-6)
+          
+          // If the pixel is black (obstacle), return the distance
+          if(hex === '#000000')
+            return i
         }
-        
-        return -1
+
+        // If no obstacle was found, return 50 (max distance)
+        return 50
+      },
+
+      rgbToHex (r, g, b) {
+        if (r > 255 || g > 255 || b > 255)
+          throw "Invalid color component"
+        return ((r << 16) | (g << 8) | b).toString(16)
       }
     }
   }
