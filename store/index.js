@@ -69,5 +69,20 @@ export const actions = {
           reject(e)
         })
     })
+  },
+
+  codeExists ({ commit }, code) {
+    return new Promise((resolve, reject) => {
+      api.get(`network/${code}/exists`)
+        .then(res => {
+          commit('setCode', code)
+          resolve(true)
+        })
+        .catch(e => {
+          if(e.response.status === 404)
+            resolve(false)
+          reject(e)
+        })
+    })
   }
 }

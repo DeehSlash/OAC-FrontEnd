@@ -7,11 +7,12 @@
             <vs-button vs-type="dark-gradient" vs-icon="arrow_back">Back</vs-button>
           </nuxt-link>
           <vs-button vs-type="danger-gradient" vs-icon="clear" @click="resetCarPosition">Reset Car Position</vs-button>
-          <vs-chip vs-icon="info" vs-color="dark">ANN code: {{ code }}</vs-chip>
+          <vs-button vs-type="dark-gradient" vs-icon="code" @click="changeCode">Change ANN Code</vs-button>
         </vs-col>
         <vs-col vs-type="flex" vs-align="center" vs-justify="flex-end" vs-w="6">
-          <vs-chip vs-icon="more_horiz" vs-color="danger" class="chip">Distance: {{ distance }}</vs-chip>
-          <vs-chip vs-icon="info" vs-color="primary" class="chip">Last movement: {{ lastMovement }}</vs-chip>
+          <vs-chip vs-color="dark">ANN code: {{ code }}</vs-chip>
+          <vs-chip vs-color="danger">Distance: {{ distance }}</vs-chip>
+          <vs-chip vs-color="primary">Last movement: {{ lastMovement }}</vs-chip>
           <vs-button :class="state.type" :vs-icon="state.icon" @click="start" vs-width="120px">{{ state.text }}</vs-button>
         </vs-col>
       </vs-row>
@@ -31,10 +32,6 @@
 <style lang="scss" scoped>
   .header {
     margin-bottom: 5px;
-  }
-
-  .chip {
-    margin-right: 15px;
   }
 </style>
 
@@ -100,7 +97,9 @@
           icon: 'play_arrow'
         },
 
-        ctx: null
+        ctx: null,
+
+        newCode: ''
       }
     },
 
@@ -166,6 +165,48 @@
             }
           })
         }
+      },
+
+      changeCode () {
+        this.$vs.prompt({
+          title: 'Change ANN Code',
+          text: 'Enter the ANN Code you wish to use',
+          color: 'primary',
+          input: {
+            placeholder: 'ANN Code',
+            value: this.newCode,
+            maxLength: 6,
+            type: 'text'
+          },
+          confirm: value => {
+            this.newCode = value
+            this.$store.dispatch('codeExists', this.newCode)
+              .then(exists => {
+                if(exists)
+                  this.$vs.notify({
+                    title: 'Success',
+                    text: `Using code ${this.newCode}`,
+                    color: 'success',
+                    time: 5000
+                  })
+                else
+                  this.$vs.notify({
+                    title: 'Error',
+                    text: `Code ${this.newCode} was not found on the server`,
+                    color: 'danger',
+                    time: 5000
+                  })
+              })
+              .catch(e => {
+                this.$vs.notify({
+                title: 'Error',
+                text: `Failed to communicate with the API: ${e.message}`,
+                color: 'danger',
+                time: 5000
+                })
+              })
+          }
+        })
       },
 
       resetCarPosition () {
