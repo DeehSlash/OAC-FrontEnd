@@ -41,16 +41,18 @@
       this.car.image = new Image()
       this.car.image.src = '/car.png'
 
-      // Add Key Down listener
-      window.addEventListener('keydown', (e) => {
-        if (['w', 'a', 's', 'd'].includes(e.key))
-          this.keyHandler(e.key)
-      })
+      // Add Key Down Listener
+      window.addEventListener('keydown', this.keyDownEvent)
 
       this.ctx = this.$refs.layer.getStage().getContext()
 
       // Calculate the first distance 
       this.distance = this.calculateDistance()
+    },
+
+    destroyed () {
+      // Remove Key Down Listener
+      window.removeEventListener('keydown', this.keyDownEvent)
     },
 
     data () {
@@ -88,7 +90,9 @@
 
         distance: -1,
 
-        ctx: null
+        ctx: null,
+
+        created: false
       }
     },
 
@@ -139,6 +143,10 @@
 
       trainingResult () {
         return this.$store.getters.getTrainingResult
+      },
+
+      eventListenerAdded () {
+        return this.$store.getters.getEventListenerAdded
       }
     },
 
@@ -225,6 +233,11 @@
               })
           }
         })
+      },
+
+      keyDownEvent (e) {
+        if (['w', 'a', 's', 'd'].includes(e.key))
+          this.keyHandler(e.key)
       },
 
       keyHandler (key) {
