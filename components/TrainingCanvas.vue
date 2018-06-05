@@ -176,8 +176,8 @@
           textConfirm: 'Reset',
           color: 'danger',
           confirm: () => {
-            this.car.x = 40
-            this.car.y = 30
+            this.car.x = 450
+            this.car.y = 250
             this.car.rotation = 0
             this.$vs.notify({
               title: 'Success',
