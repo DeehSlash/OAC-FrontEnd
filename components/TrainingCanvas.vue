@@ -10,8 +10,8 @@
           <vs-button vs-type="danger-gradient" vs-icon="clear" @click="resetCarPosition">Reset Car Position</vs-button>
         </vs-col>
         <vs-col vs-type="flex" vs-align="center" vs-justify="flex-end" vs-w="6">
-          <vs-chip vs-color="danger">Distance: {{ `${distance[0]}, ${distance[1]}, ${distance[2]}` }}</vs-chip>
-          <vs-chip vs-color="primary">Training Data Entries: {{ trainingData.length }}</vs-chip>
+          <vs-chip vs-color="danger">Distance:<br>{{ `${distance[0]}, ${distance[1]}, ${distance[2]}` }}</vs-chip>
+          <vs-chip vs-color="primary">Training Data Entries:<br>{{ trainingData.length }}</vs-chip>
           <vs-button vs-type="success-gradient" vs-icon="done" @click="finish">Finish</vs-button>
         </vs-col>
       </vs-row>

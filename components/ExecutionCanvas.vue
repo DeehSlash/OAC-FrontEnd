@@ -10,9 +10,9 @@
           <vs-button vs-type="dark-gradient" vs-icon="code" @click="changeCode">Change ANN Code</vs-button>
         </vs-col>
         <vs-col vs-type="flex" vs-align="center" vs-justify="flex-end" vs-w="6">
-          <vs-chip vs-color="dark">ANN code: {{ code }}</vs-chip>
-          <vs-chip vs-color="danger">Distance: {{ `${distance[0]}, ${distance[1]}, ${distance[2]}` }}</vs-chip>
-          <vs-chip vs-color="primary">Last movement: {{ lastMovement }}</vs-chip>
+          <vs-chip vs-color="dark">ANN code:<br>{{ code }}</vs-chip>
+          <vs-chip vs-color="danger">Distance:<br>{{ `${distance[0]}, ${distance[1]}, ${distance[2]}` }}</vs-chip>
+          <vs-chip vs-color="primary">Last movement:<br>{{ lastMovement }}</vs-chip>
           <vs-button :class="state.type" :vs-icon="state.icon" @click="start" vs-width="120px">{{ state.text }}</vs-button>
         </vs-col>
       </vs-row>
