@@ -233,7 +233,7 @@
                 this.$vs.loading.close()
                 this.$vs.alert({
                   title: 'Training Result',
-                  text: `Error: ${this.trainingResult.error}<br>Iterations: ${this.trainingResult.iterations}<br>Time: ${this.trainingResult.time}`,
+                  text: `Error: ${this.trainingResult.error}<br>Iterations: ${this.trainingResult.iterations}<br>Time: ${this.trainingResult.time / 1000} seconds`,
                   textConfirm: 'OK',
                   color: 'success'
                 })
