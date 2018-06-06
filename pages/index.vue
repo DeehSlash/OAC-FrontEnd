@@ -20,7 +20,8 @@
 
     <div class="note">
       <b>Note:</b> this application is targeted for <b>desktop</b> only.<br>
-      A minimum screen resolution of <b>1366 x 768</b> is recommended.
+      A minimum screen resolution of <b>1366 x 768</b> is recommended.<br>
+      Tested only on <b>Google Chrome</b>.
     </div>
 
   </container>
