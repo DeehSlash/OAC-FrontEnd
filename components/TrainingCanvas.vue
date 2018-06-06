@@ -10,7 +10,7 @@
           <vs-button vs-type="danger-gradient" vs-icon="clear" @click="resetCarPosition">Reset Car Position</vs-button>
         </vs-col>
         <vs-col vs-type="flex" vs-align="center" vs-justify="flex-end" vs-w="6">
-          <vs-chip vs-color="danger">Distance: {{ distance }}</vs-chip>
+          <vs-chip vs-color="danger">Distance: {{ `${distance[0]}, ${distance[1]}, ${distance[2]}` }}</vs-chip>
           <vs-chip vs-color="primary">Training Data Entries: {{ trainingData.length }}</vs-chip>
           <vs-button vs-type="success-gradient" vs-icon="done" @click="finish">Finish</vs-button>
         </vs-col>
@@ -47,7 +47,9 @@
       this.ctx = this.$refs.layer.getStage().getContext()
 
       // Calculate the first distance 
-      this.distance = this.calculateDistance()
+      this.distance[0] = this.calculateDistance('top')
+      this.distance[1] = this.calculateDistance('middle')
+      this.distance[2] = this.calculateDistance('bottom')
     },
 
     destroyed () {
@@ -88,7 +90,7 @@
           rotation: 0
         },
 
-        distance: -1,
+        distance: [-1, -1, -1],
 
         ctx: null,
 
@@ -129,8 +131,28 @@
             points: [
               this.car.x + (this.car.width / 2) * Math.cos(Math.PI / 180 * this.car.rotation),
               this.car.y + (this.car.width / 2) * Math.sin(Math.PI / 180 * this.car.rotation),
-              this.car.x + ((this.car.width / 2) + 50) * Math.cos(Math.PI / 180 * this.car.rotation),
-              this.car.y + ((this.car.width / 2) + 50) * Math.sin(Math.PI / 180 * this.car.rotation)
+              this.car.x + ((this.car.width / 2) + 30) * Math.cos(Math.PI / 180 * this.car.rotation),
+              this.car.y + ((this.car.width / 2) + 30) * Math.sin(Math.PI / 180 * this.car.rotation)
+            ],
+            stroke: 'green'
+          },
+          {
+            name: 'top',
+            points: [
+              this.car.x + (this.car.width / 2) * Math.cos(Math.PI / 180 * this.car.rotation),
+              this.car.y + (this.car.width / 2) * Math.sin(Math.PI / 180 * this.car.rotation),
+              this.car.x + ((this.car.width / 2) + 30) * Math.cos(Math.PI / 180 * (this.car.rotation - 30)),
+              this.car.y + ((this.car.width / 2) + 30) * Math.sin(Math.PI / 180 * (this.car.rotation - 30))
+            ],
+            stroke: 'green'
+          },
+          {
+            name: 'bottom',
+            points: [
+              this.car.x + (this.car.width / 2) * Math.cos(Math.PI / 180 * this.car.rotation),
+              this.car.y + (this.car.width / 2) * Math.sin(Math.PI / 180 * this.car.rotation),
+              this.car.x + ((this.car.width / 2) + 30) * Math.cos(Math.PI / 180 * (this.car.rotation + 30)),
+              this.car.y + ((this.car.width / 2) + 30) * Math.sin(Math.PI / 180 * (this.car.rotation + 30))
             ],
             stroke: 'green'
           }
@@ -260,47 +282,68 @@
         }
 
         // If the distance is greater than 0 (obstacle ahead), save it as a training data
-        if (this.distance >= 0)
-            this.$store.commit('addTrainingData', {
-              input: [this.distance],
-              output: [key]
-            })
+        this.$store.commit('addTrainingData', {
+          input: this.distance,
+          output: [key]
+        })
 
         // Recalculate the distance
-        this.distance = this.calculateDistance()
+        this.distance[0] = this.calculateDistance('top')
+        this.distance[1] = this.calculateDistance('middle')
+        this.distance[2] = this.calculateDistance('bottom')
       },
 
-      calculateDistance () {
-        let line = this.lines[0].points
-        let x, y, p, hex
-        let cos = Math.cos(Math.PI / 180 * this.car.rotation)
-        let sin = Math.sin(Math.PI / 180 * this.car.rotation)
+      calculateDistance (lineName) {
+        let x, y, angleMod, cos, sin
 
-        for (let i = 0; i < 50; i++) {
+        switch (lineName) {
+          case 'top':
+            angleMod = -30
+            break
+          case 'middle':
+            angleMod = 0
+            break
+          case 'bottom':
+            angleMod = 30
+            break
+        }
+
+        cos = Math.cos(Math.PI / 180 * (this.car.rotation + angleMod))
+        sin = Math.sin(Math.PI / 180 * (this.car.rotation + angleMod))
+
+        for (let i = 0; i <= 30; i++) {
           x = this.car.x + ((this.car.width / 2) + i) * cos
           y = this.car.y + ((this.car.width / 2) + i) * sin
 
           // Check if out of bounds
-          if ((x < 0 || x > 1000) || (y < 0 || y > 500))
+          if (this.outOfBound(x, y))
             return i
 
-          // Check if there's a obstacle
-          p = this.ctx.getImageData(x, y, 1, 1).data
-          hex = '#' + ('000000' + this.rgbToHex(p[0], p[1], p[2])).slice(-6)
+          // Get hex color  
+          let hex = this.getHex(x, y)
           
           // If the pixel is black (obstacle), return the distance
-          if(hex === '#000000')
+          if (hex === '#000000')
             return i
         }
 
-        // If no obstacle was found, return 50 (max distance)
-        return 50
+        // If no obstacle was found, return 41
+        return 31
       },
 
       rgbToHex (r, g, b) {
         if (r > 255 || g > 255 || b > 255)
           throw "Invalid color component"
         return ((r << 16) | (g << 8) | b).toString(16)
+      },
+
+      outOfBound (x, y) {
+        return ((x < 0 || x > this.canvas.width) || (y < 0 || y > this.canvas.height))
+      },
+
+      getHex (x, y) {
+        let p = this.ctx.getImageData(x, y, 1, 1).data
+        return '#' + ('000000' + this.rgbToHex(p[0], p[1], p[2])).slice(-6)
       }
     }
   }
