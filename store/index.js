@@ -10,7 +10,7 @@ export const state = () => ({
   trainingData: [],
   trainingResult: {},
   code: '',
-  delay: 20
+  delay: 50
 })
 
 export const getters = {
