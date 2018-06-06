@@ -172,6 +172,10 @@
 
       code () {
         return this.$store.getters.getCode
+      },
+
+      delay () {
+        return this.$store.getters.getDelay
       }
     },
 
@@ -273,7 +277,7 @@
           }
 
           this.getMovements()
-        }, 25)
+        }, this.delay)
       },
 
       getNextMovement () {

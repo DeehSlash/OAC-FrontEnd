@@ -10,6 +10,10 @@
 
     <vs-button vs-type="primary-gradient" vs-icon="code" vs-width="200px" @click="enterCode">Enter ANN Code</vs-button>
 
+    <nuxt-link to="/settings">
+      <vs-button vs-type="dark-gradient" vs-icon="settings" vs-width="200px">Settings</vs-button>
+    </nuxt-link>
+
     <nuxt-link to="/about">
       <vs-button vs-type="dark-gradient" vs-icon="info" vs-width="200px">About</vs-button>
     </nuxt-link>

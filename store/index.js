@@ -9,7 +9,8 @@ const api = axios.create(config.api)
 export const state = () => ({
   trainingData: [],
   trainingResult: {},
-  code: ''
+  code: '',
+  delay: 20
 })
 
 export const getters = {
@@ -23,6 +24,10 @@ export const getters = {
 
   getCode: state => {
     return state.code
+  },
+
+  getDelay: state => {
+    return state.delay
   }
 }
 
@@ -41,6 +46,10 @@ export const mutations = {
 
   setCode (state, code) {
     state.code = code
+  },
+
+  setDelay (state, delay) {
+    state.delay = delay
   }
 }
 
