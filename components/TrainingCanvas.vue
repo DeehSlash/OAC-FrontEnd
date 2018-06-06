@@ -283,7 +283,7 @@
 
         // If the distance is greater than 0 (obstacle ahead), save it as a training data
         this.$store.commit('addTrainingData', {
-          input: this.distance,
+          input: [...this.distance],
           output: [key]
         })
 

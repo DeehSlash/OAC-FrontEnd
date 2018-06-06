@@ -61,7 +61,7 @@ export const actions = {
 
   getNextMovement ({ state }, distance) {
     return new Promise((resolve, reject) => {
-      api.post(`network/${state.code}/activate`, { input: [distance] })
+      api.post(`network/${state.code}/activate`, { input: distance })
         .then(res => {
           resolve(res.data)
         })
